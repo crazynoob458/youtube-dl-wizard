@@ -11,12 +11,16 @@ echo 2: download a youtube video from URL with standard video quality
 echo 3: download audio only from youtube (good for music)
 echo 4: download by searching
 echo 5: update youtube-dl
+echo 6: type your own command for youtube-dl
+echo 7: credits
 set /p a=Option: 
 if %a%==1 goto download
 if %a%==2 goto standarddownload
 if %a%==3 goto downloadaudio
 if %a%==4 goto downloadbutsearch
 if %a%==5 goto update
+if %a%==6 goto command
+if %a%==7 goto credits
 goto start
 
 :download
@@ -26,7 +30,7 @@ echo what is the URL of the youtube video?
 set /p v=URL: 
 clear
 echo starting download!
-youtube-dl -f bestvideo+bestaudio --console-title --ffmpeg-location D:\apps\ffmpeg\bin\ %v%
+youtube-dl -f bestvideo+bestaudio --add-metadata --write-sub --sub-format srt --ignore-config --console-title --ffmpeg-location D:\apps\ffmpeg\bin\ %v%
 echo opening explorer...
 %SystemRoot%\explorer.exe %~dp0
 echo download is (probably) complete!
@@ -39,7 +43,7 @@ clear
 echo what do you want to search?
 set /p s=search query: 
 echo starting download!
-youtube-dl -f bestvideo+bestaudio --console-title --ffmpeg-location D:\apps\ffmpeg\bin\ ytsearch:%s%
+youtube-dl -f bestvideo+bestaudio --add-metadata --write-sub --sub-format srt --ignore-config --console-title --ffmpeg-location D:\apps\ffmpeg\bin\ ytsearch:%s%
 echo opening explorer...
 %SystemRoot%\explorer.exe %~dp0
 echo download is (probably) complete!
@@ -69,13 +73,14 @@ echo i do reccomend that you select one in the main menu
 echo i only reccomend to use this option if you have data limits or other reasons
 echo press any key to continue downloading with this option
 echo or close and reopen the app to select the other option
+echo note: subtitles are not downloaded with this option
 pause>NUL
 clear
 echo what is the URL of the youtube video?
 set /p v=URL: 
 clear
 echo starting download!
-youtube-dl -f --console-title %v%
+youtube-dl -f --console-title --ignore-config %v%
 echo opening explorer...
 %SystemRoot%\explorer.exe %~dp0
 echo download is (probably) complete!
@@ -100,7 +105,7 @@ echo what is the URL of the youtube video?
 set /p v=URL: 
 clear
 echo starting download!
-youtube-dl -f bestaudio --console-title --ffmpeg-location D:\apps\ffmpeg\bin\ --extract-audio --audio-format mp3 %v%
+youtube-dl -f bestaudio --add-metadata --metadata-from-title "%(artist)s - %(title)s" --write-sub --sub-format srt --ignore-config --console-title --ffmpeg-location D:\apps\ffmpeg\bin\ --extract-audio --audio-format mp3 %v%
 echo opening explorer...
 %SystemRoot%\explorer.exe %~dp0
 echo download is (probably) complete!
@@ -113,9 +118,35 @@ echo what is the URL of the youtube video?
 set /p v=URL: 
 clear
 echo starting download!
-youtube-dl -f bestaudio --console-title --ffmpeg-location D:\apps\ffmpeg\bin\ --extract-audio --audio-format flac --audio-quality 0 %v%
+youtube-dl -f bestaudio --add-metadata --metadata-from-title "%(artist)s - %(title)s" --write-sub --sub-format srt --ignore-config --console-title --ffmpeg-location D:\apps\ffmpeg\bin\ --extract-audio --audio-format flac --audio-quality 0 %v%
 echo opening explorer...
 %SystemRoot%\explorer.exe %~dp0
 echo download is (probably) complete!
 pause
 exit
+
+:command
+clear
+title youtube-dl cmd
+echo youtube-dl command line
+echo welcome to the youtube-dl command line!
+echo you are able to type in any command for youtube-dl
+echo please type in any command below:
+set /p c=command: youtube-dl 
+youtube-dl %c%
+echo command ended
+pause
+exit
+
+:credits
+clear
+echo ---CREDITS---
+echo Main developer: 
+echo Crazynoob458
+echo Contributors:
+echo none
+echo thanks to the developers and contributors of youtube-dl
+echo without their work this batch file would have not existed
+echo press any key to return to the main menu
+pause>NUL
+goto start
