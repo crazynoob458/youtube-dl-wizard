@@ -30,7 +30,7 @@ echo what is the URL of the youtube video?
 set /p v=URL: 
 clear
 echo starting download!
-youtube-dl -f bestvideo+bestaudio --add-metadata --write-sub --sub-format srt --ignore-config --console-title --ffmpeg-location D:\apps\ffmpeg\bin\ %v%
+yt-dlp -f bestvideo+bestaudio --add-metadata --write-sub --sub-format srt --ignore-config --console-title --ffmpeg-location D:\apps\ffmpeg\bin\ %v%
 echo opening explorer...
 %SystemRoot%\explorer.exe %~dp0
 echo download is (probably) complete!
@@ -43,7 +43,7 @@ clear
 echo what do you want to search?
 set /p s=search query: 
 echo starting download!
-youtube-dl -f bestvideo+bestaudio --add-metadata --write-sub --sub-format srt --ignore-config --console-title --ffmpeg-location D:\apps\ffmpeg\bin\ ytsearch:%s%
+yt-dlp -f bestvideo+bestaudio --add-metadata --write-sub --sub-format srt --ignore-config --console-title --ffmpeg-location D:\apps\ffmpeg\bin\ ytsearch:%s%
 echo opening explorer...
 %SystemRoot%\explorer.exe %~dp0
 echo download is (probably) complete!
@@ -60,7 +60,7 @@ if %u%==n goto start
 goto update
 
 :update2
-youtube-dl -U
+yt-dlp -U
 echo youube-dl has (probably) updated!
 pause
 exit
@@ -80,7 +80,7 @@ echo what is the URL of the youtube video?
 set /p v=URL: 
 clear
 echo starting download!
-youtube-dl -f --console-title --ignore-config %v%
+yt-dlp -f --console-title --ignore-config %v%
 echo opening explorer...
 %SystemRoot%\explorer.exe %~dp0
 echo download is (probably) complete!
@@ -105,7 +105,7 @@ echo what is the URL of the youtube video?
 set /p v=URL: 
 clear
 echo starting download!
-youtube-dl -f bestaudio --add-metadata --metadata-from-title "%(artist)s - %(title)s" --write-sub --sub-format srt --ignore-config --console-title --ffmpeg-location D:\apps\ffmpeg\bin\ --extract-audio --audio-format mp3 %v%
+yt-dlp -f bestaudio --add-metadata --metadata-from-title "%(artist)s - %(title)s" --write-sub --sub-format srt --ignore-config --console-title --ffmpeg-location D:\apps\ffmpeg\bin\ --extract-audio --audio-format mp3 %v%
 echo opening explorer...
 %SystemRoot%\explorer.exe %~dp0
 echo download is (probably) complete!
@@ -118,7 +118,7 @@ echo what is the URL of the youtube video?
 set /p v=URL: 
 clear
 echo starting download!
-youtube-dl -f bestaudio --add-metadata --metadata-from-title "%(artist)s - %(title)s" --write-sub --sub-format srt --ignore-config --console-title --ffmpeg-location D:\apps\ffmpeg\bin\ --extract-audio --audio-format flac --audio-quality 0 %v%
+yt-dlp -f bestaudio --add-metadata --metadata-from-title "%(artist)s - %(title)s" --write-sub --sub-format srt --ignore-config --console-title --ffmpeg-location D:\apps\ffmpeg\bin\ --extract-audio --audio-format flac --audio-quality 0 %v%
 echo opening explorer...
 %SystemRoot%\explorer.exe %~dp0
 echo download is (probably) complete!
@@ -133,7 +133,7 @@ echo welcome to the youtube-dl command line!
 echo you are able to type in any command for youtube-dl
 echo please type in any command below:
 set /p c=command: youtube-dl 
-youtube-dl %c%
+yt-dlp %c%
 echo command ended
 pause
 exit
